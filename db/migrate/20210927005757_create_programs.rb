@@ -3,8 +3,9 @@ class CreatePrograms < ActiveRecord::Migration[6.1]
     create_table :programs do |t|
       t.string :name
       t.string :summary
-      t.integer :hours
-      t.string :image
+      t.string :duration
+      t.string :image_url
+      t.integer :rating
 
       t.timestamps
     end

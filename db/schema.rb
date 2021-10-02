@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_010131) do
+ActiveRecord::Schema.define(version: 2021_10_02_162517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,13 +35,16 @@ ActiveRecord::Schema.define(version: 2021_09_27_010131) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_people_on_user_id"
   end
 
   create_table "programs", force: :cascade do |t|
     t.string "name"
     t.string "summary"
-    t.integer "hours"
-    t.string "image"
+    t.string "duration"
+    t.string "image_url"
+    t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -57,7 +60,15 @@ ActiveRecord::Schema.define(version: 2021_09_27_010131) do
     t.index ["program_id"], name: "index_schedules_on_program_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "enroll_studies", "people"
   add_foreign_key "enroll_studies", "programs"
+  add_foreign_key "people", "users"
   add_foreign_key "schedules", "programs"
 end

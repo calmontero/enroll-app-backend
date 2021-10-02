@@ -30,7 +30,7 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-        params.permit(:name, :summary, :hours, :image)
+        params.permit(:name, :summary, :duration, :image_url, :rating)
     end
     
     def render_not_found_response
