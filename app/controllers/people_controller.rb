@@ -8,12 +8,13 @@ class PeopleController < ApplicationController
     end
 
     def index
-        people = Person.all
+        #people = Person.all
+        people = Person.where(user: current_user)
         render json: people, except: [:created_at, :updated_at]
     end
 
     def create
-        person = Person.create!(person_params)
+        person = @current_user.people.create!(person_params)
         render json: person, status: :created
     end
 
@@ -36,7 +37,7 @@ class PeopleController < ApplicationController
     end
 
     def person_params
-      params.permit(:first_name, :last_name, :email, :state, :city, :phone, :username, :password_digest)
+      params.permit(:first_name, :last_name, :email, :state, :city, :phone)
     end
 
     def render_not_found_response

@@ -1,10 +1,10 @@
 class ProgramsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-    # GET /programs
+    skip_before_action :authorize, only: :index
+
     def index
-        programs = Program.all
-        render json: programs, except: [:created_at, :updated_at]
+        render json: Program.all
     end
 
     def show
