@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   resources :schedules
   resources :enroll_studies
   resources :programs
-  resources :people
+  #resources :people
+
+  resources :users, only: [:show] do
+    # nested resource for profiles
+    resources :people, only: [:show, :index, :create, :destroy, :update]
+  end
 
   post "/signup", to: "users#create"
   get "/me", to: "users#show"

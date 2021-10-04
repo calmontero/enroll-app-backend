@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+    skip_before_action :authorize, only: [:create, :index]
 
     def show
         person = find_person
@@ -8,13 +9,13 @@ class PeopleController < ApplicationController
     end
 
     def index
-        #people = Person.all
-        people = Person.where(user: current_user)
-        render json: people, except: [:created_at, :updated_at]
+        user = User.find(params[:user_id])
+        people = user.person
+        render json: people, include: :user
     end
 
     def create
-        person = @current_user.people.create!(person_params)
+        person = Person.create!(person_params)
         render json: person, status: :created
     end
 
@@ -37,7 +38,7 @@ class PeopleController < ApplicationController
     end
 
     def person_params
-      params.permit(:first_name, :last_name, :email, :state, :city, :phone)
+      params.permit(:first_name, :last_name, :email, :state, :city, :phone, :user_id)
     end
 
     def render_not_found_response
