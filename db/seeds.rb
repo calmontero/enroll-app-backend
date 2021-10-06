@@ -41,7 +41,7 @@ movies = Program.create(
     {   name: "Java Programming",
         summary: "Take your first step towards a career in software development with this introduction to Java—one of the most in-demand programming languages and the foundation of the Android operating system. Designed for beginners, this Specialization will teach you core programming concepts and equip you to write programs to solve complex problems. In addition, you will gain the foundational skills a software engineer needs to solve real-world problems, from designing algorithms to testing and debugging your programs.",
         duration: "12 months",
-        image_url: "https://i.pcmag.com/image_urlry/articles/03mYCJkIdptJX1Soh08tBzt-1.1630572092.fit_lim.size_1600x900.jpg",
+        image_url: "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/121px-Java_programming_language_logo.svg.png",
         rating: rand(1..5)
     }
 ])

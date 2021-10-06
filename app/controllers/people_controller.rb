@@ -1,7 +1,7 @@
 class PeopleController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-    skip_before_action :authorize, only: [:create, :index]
+    skip_before_action :authorize, only: [:create, :index, :show, :update]
 
     def show
         person = find_person
@@ -23,12 +23,6 @@ class PeopleController < ApplicationController
         person = find_person
         person.update!(person_params)
         render json: person
-    end
-
-    def destroy
-        person = find_person
-        person.destroy
-        head :no_content
     end
 
     private
